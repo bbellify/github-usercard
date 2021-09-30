@@ -93,22 +93,19 @@ function cardMaker(object) {
   infoDiv.appendChild(followers);
   infoDiv.appendChild(following);
   infoDiv.appendChild(bio);
-
-  profile.appendChild(profileAnchor);
-
+  cardDiv.appendChild(profileAnchor);
+  
   image.src = object.data.avatar_url;
   name.textContent = object.data.name;
   username.textContent = object.data.login;
   location.textContent = `Location: ${object.data.location}`;
-  profile.textContent = `Profile: ${profileAnchor}`;
+  profile.textContent = `Profile: LINK FLOATING ABOVE (-_-)`;
   profileAnchor.href = object.data.url;
   profileAnchor.textContent = object.data.url;
   followers.textContent = `Followers: ${object.data.followers}`;
   following.textContent = `Following: ${object.data.following}`;
   bio.textContent = `Bio: ${object.data.bio}`;
 
-  console.log(profile);
-  console.log(profileAnchor);
   return cardDiv
 }
 
