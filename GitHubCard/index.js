@@ -3,7 +3,18 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+import axios from 'axios';
+axios.get('https://api.github.com/users/bbellify')
+  .then(res => {
+    console.log(res);
+    // return cardMaker(res);
+  })
+  .catch(err => {
+    console.error(err)
+  })
+  .finally(() => {
+    console.log('check check')
+  })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +60,51 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function cardMaker(object) {
+  const cardDiv = document.createElement('div');
+  const image = document.createElement('img');
+  const infoDiv = document.createElement('div');
+  const name = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileAnchor = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  cardDiv.classList.add('card');
+  infoDiv.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+
+  cardDiv.appendChild(image);
+  cardDiv.appendChild(infoDiv);
+  infoDiv.appendChild(name);
+  infoDiv.appendChild(username);
+  infoDiv.appendChild(location);
+  infoDiv.appendChild(profile);
+  infoDiv.appendChild(followers);
+  infoDiv.appendChild(following);
+  infoDiv.appendChild(bio);
+
+  profile.appendChild(profileAnchor);
+
+  image.src = object.data.avatar_url;
+  name.textContent = object.data.name;
+  username.textContent = object.data.login;
+  location.textContent = `Location: ${object.data.location}`;
+  profile.textContent = `Profile:`;
+  profileAnchor.href = `${object.data.html_url}`;
+  profileAnchor.textContent = `${object.data.html_url}`;
+  followers.textContent = `Followers: ${object.data.followers}`;
+  following.textContent = `Following: ${object.data.following}`;
+  bio.textContent = `Bio: ${object.data.bio}`;
+
+  return cardDiv
+}
+
 
 /*
   List of LS Instructors Github username's:
