@@ -6,8 +6,10 @@
 import axios from 'axios';
 axios.get('https://api.github.com/users/bbellify')
   .then(res => {
-    console.log(res);
-    // return cardMaker(res);
+    // console.log(res.data.login);
+    const cards = document.querySelector('.cards');
+    cards.appendChild(cardMaker(res));
+
   })
   .catch(err => {
     console.error(err)
@@ -15,6 +17,7 @@ axios.get('https://api.github.com/users/bbellify')
   .finally(() => {
     console.log('check check')
   })
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -61,6 +64,8 @@ const followersArray = [];
     </div>
 */
 
+
+
 function cardMaker(object) {
   const cardDiv = document.createElement('div');
   const image = document.createElement('img');
@@ -95,15 +100,18 @@ function cardMaker(object) {
   name.textContent = object.data.name;
   username.textContent = object.data.login;
   location.textContent = `Location: ${object.data.location}`;
-  profile.textContent = `Profile:`;
-  profileAnchor.href = `${object.data.html_url}`;
-  profileAnchor.textContent = `${object.data.html_url}`;
+  profile.textContent = `Profile: ${profileAnchor}`;
+  profileAnchor.href = object.data.url;
+  profileAnchor.textContent = object.data.url;
   followers.textContent = `Followers: ${object.data.followers}`;
   following.textContent = `Following: ${object.data.following}`;
   bio.textContent = `Bio: ${object.data.bio}`;
 
+  console.log(profile);
+  console.log(profileAnchor);
   return cardDiv
 }
+
 
 
 /*
