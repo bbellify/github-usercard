@@ -6,16 +6,13 @@
 import axios from 'axios';
 axios.get('https://api.github.com/users/bbellify')
   .then(res => {
-    // console.log(res.data.login);
     const cards = document.querySelector('.cards');
     cards.appendChild(cardMaker(res));
-
   })
   .catch(err => {
     console.error(err)
   })
   .finally(() => {
-    console.log('check check')
   })
 
 /*
@@ -42,7 +39,28 @@ axios.get('https://api.github.com/users/bbellify')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+]
+
+function getFollowers(array) {
+  array.forEach(user => {
+    axios.get(`https://api.github.com/users/${user}`)
+    .then(res => {
+      const cards = document.querySelector('.cards');
+      cards.appendChild(cardMaker(res));
+    })
+    .catch(err => {
+      console.error(err)
+    })
+    .finally(() => {
+    })
+  })
+}
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -109,7 +127,7 @@ function cardMaker(object) {
   return cardDiv
 }
 
-
+getFollowers(followersArray);
 
 /*
   List of LS Instructors Github username's:
